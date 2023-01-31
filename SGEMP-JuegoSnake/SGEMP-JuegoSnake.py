@@ -22,12 +22,22 @@ cabeza.direction = "up"
 
 manzana = turtle.Turtle()
 manzana.speed(0)
-manzana.shape("turtle")
+manzana.shape("circle")
 manzana.color("white")
 manzana.penup()
 manzana.goto(randint(-280, 280), randint(-280, 280))
 
+tortuga = turtle.Turtle()
+tortuga.speed(0)
+tortuga.shape("turtle")
+tortuga.color("white")
+tortuga.penup()
+tortuga.goto(randint(-280, 280), randint(-280, 280))
+
+contPuntuacionTemp = 0
 contPuntuacion = 0
+contManzanas = 0
+contTortugas = 0
 
 puntuacion = turtle.Turtle()
 puntuacion.speed(0)
@@ -35,8 +45,26 @@ puntuacion.shape("square")
 puntuacion.color("white")
 puntuacion.penup()
 puntuacion.hideturtle()
-puntuacion.goto(-280, -280)
-puntuacion.write(contPuntuacion, align="center", font=("Cournier", 24, "normal"))
+puntuacion.goto(180, -280)
+puntuacion.write("TOTAL: " + str(contPuntuacion), align="center", font=("Cournier", 24, "normal"))
+
+puntuacionManzana = turtle.Turtle()
+puntuacionManzana.speed(0)
+puntuacionManzana.shape("square")
+puntuacionManzana.color("white")
+puntuacionManzana.penup()
+puntuacionManzana.hideturtle()
+puntuacionManzana.goto(-200, -280)
+puntuacionManzana.write("Manzanas: " + str(contManzanas), align="center", font=("Cournier", 24, "normal"))
+
+puntuacionTortuga = turtle.Turtle()
+puntuacionTortuga.speed(0)
+puntuacionTortuga.shape("square")
+puntuacionTortuga.color("white")
+puntuacionTortuga.penup()
+puntuacionTortuga.hideturtle()
+puntuacionTortuga.goto(0, -280)
+puntuacionTortuga.write("Tortugas: " + str(contTortugas), align="center", font=("Cournier", 24, "normal"))
 
 def arriba():
     cabeza.direction = "up"
@@ -87,15 +115,59 @@ while True:
 
         segmentos.clear()
         puntuacion.clear()
-        contPuntuacion = 0
-        puntuacion.write(contPuntuacion, align="center", font=("Cournier", 24, "normal"))
+
+        if contPuntuacionTemp > contPuntuacion:
+            contPuntuacion = contPuntuacionTemp
+
+        contPuntuacionTemp = 0
+        contManzanas = 0
+        contTortugas = 0
+
+        puntuacionManzana.clear()
+        puntuacionTortuga.clear()
+
+        puntuacionManzana.write("Manzanas: " + str(contManzanas), align="center", font=("Cournier", 24, "normal"))
+        puntuacionTortuga.write("Tortugas: " + str(contTortugas), align="center", font=("Cournier", 24, "normal"))
+        puntuacion.write("TOTAL: " + str(contPuntuacion), align="center", font=("Cournier", 24, "normal"))
 
     if cabeza.distance(manzana) < 20:
         manzana.goto(randint(-280, 280), randint(-280, 280))
 
         puntuacion.clear()
-        contPuntuacion += 1
-        puntuacion.write(contPuntuacion, align="center", font=("Cournier", 24, "normal"))
+        contPuntuacionTemp += 1
+
+        puntuacionManzana.clear()
+        contManzanas += 1
+
+        puntuacionManzana.write("Manzanas: " + str(contManzanas), align="center", font=("Cournier", 24, "normal"))
+
+        if contPuntuacionTemp > contPuntuacion:
+            puntuacion.write("TOTAL: " + str(contPuntuacionTemp), align="center", font=("Cournier", 24, "normal"))
+        else:
+            puntuacion.write("TOTAL: " + str(contPuntuacion), align="center", font=("Cournier", 24, "normal"))
+
+        nuevoSegmento = turtle.Turtle()
+        nuevoSegmento.speed(0)
+        nuevoSegmento.shape("square")
+        nuevoSegmento.color("grey")
+        nuevoSegmento.penup()
+        segmentos.append(nuevoSegmento)
+
+    if cabeza.distance(tortuga) < 20:
+        tortuga.goto(randint(-280, 280), randint(-280, 280))
+
+        puntuacion.clear()
+        contPuntuacionTemp += 1
+
+        puntuacionTortuga.clear()
+        contTortugas += 1
+
+        puntuacionTortuga.write("Tortugas: " + str(contTortugas), align="center", font=("Cournier", 24, "normal"))
+
+        if contPuntuacionTemp > contPuntuacion:
+            puntuacion.write("TOTAL: " + str(contPuntuacionTemp), align="center", font=("Cournier", 24, "normal"))
+        else:
+            puntuacion.write("TOTAL: " + str(contPuntuacion), align="center", font=("Cournier", 24, "normal"))
 
         nuevoSegmento = turtle.Turtle()
         nuevoSegmento.speed(0)
@@ -124,7 +196,19 @@ while True:
 
             segmentos.clear()
             puntuacion.clear()
-            contPuntuacion = 0
-            puntuacion.write(contPuntuacion, align="center", font=("Cournier", 24, "normal"))
+
+            if contPuntuacionTemp > contPuntuacion:
+                contPuntuacion = contPuntuacionTemp
+
+            contPuntuacionTemp = 0
+            contManzanas = 0
+            contTortugas = 0
+
+            puntuacionManzana.clear()
+            puntuacionTortuga.clear()
+
+            puntuacionManzana.write("Manzanas: " + str(contManzanas), align="center", font=("Cournier", 24, "normal"))
+            puntuacionTortuga.write("Tortugas: " + str(contTortugas), align="center", font=("Cournier", 24, "normal"))
+            puntuacion.write("TOTAL:" + str(contPuntuacion), align="center", font=("Cournier", 24, "normal"))
 
     time.sleep(POSPONER)
